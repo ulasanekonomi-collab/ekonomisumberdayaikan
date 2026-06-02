@@ -90,6 +90,18 @@ else:
         st.write(f"- **MSY (Maximum Sustainable Yield):** Dicapai pada effort **{E_MSY:.2f}**. Pendapatan kotor tertinggi, tapi keuntungan bersih sudah menurun.")
         st.write(f"- **OAE (Open Access Equilibrium):** Dicapai pada effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
 
+# --- TAMBAHAN KATA KUNCI TAB 2 ---
+        with st.expander("📌 Kata Kunci & Bahan Kajian Kelompok (Ekonomi & Kebijakan)"):
+            st.markdown("""
+            **Gunakan parameter di sebelah kiri untuk menjawab isu kebijakan berikut:**
+            *   **Tragedy of the Commons:** Mengapa kondisi akses terbuka (OAE) membuat keuntungan ekonomi nelayan habis sama sekali ($TR = TC$)?
+            *   **Efisiensi MEY vs MSY:** Secara matematis dan grafis, mengapa titik keuntungan ekonomi maksimal (MEY) **selalu** berada pada tingkat *effort* yang lebih rendah dibanding MSY?
+            *   **Rente Ekonomi (Resource Rent):** Pada titik MEY, terdapat surplus (selisih besar antara TR dan TC). Menurut kelompok Anda, siapa yang berhak menikmati surplus ini?
+            *   **Dampak Subsidi:** Geser *slider* Biaya (c) ke kiri (simulasi subsidi BBM). Apa dampaknya terhadap pergeseran titik OAE dan kelestarian stok ikan?
+            """)
+            
+        fig2, ax2 = plt.subplots(figsize=(10, 5))
+        # ... [kode plot fig2 dan ax2 dilanjutkan di bawah sini] ...
 # --- FOOTER / KREDIT ---
 st.sidebar.markdown("---") 
 
