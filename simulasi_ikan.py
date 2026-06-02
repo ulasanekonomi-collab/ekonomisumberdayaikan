@@ -83,13 +83,29 @@ else:
         fig1, ax1 = plt.subplots(figsize=(10, 5))
         # ... [kode plot fig1 dan ax1 dilanjutkan di bawah sini] ...
     
+# ==========================================
+    # TAB 2: BIOECONOMICS
+    # ==========================================
     with tab2:
         st.subheader("Kurva Total Revenue (TR) dan Total Cost (TC)")
+        
+        # Petunjuk Pembelajaran Tab 2
+        with st.expander("📖 Petunjuk Pembelajaran & Eksperimen (Klik untuk membuka)", expanded=False):
+            st.markdown("""
+            **Tujuan:** Mengintegrasikan variabel pasar (harga dan biaya) dengan kondisi ekologis untuk merumuskan kebijakan yang rasional.
+            
+            **Langkah Eksperimen:**
+            1. **Identifikasi Rezim:** Temukan 3 titik kritis: **MEY** (Keuntungan Maksimal), **MSY** (Tangkapan Maksimal), dan **OAE** (Akses Terbuka/Keuntungan Nol).
+            2. **Tragedy of the Commons:** Perhatikan titik hitam **OAE**. Jika tanpa aturan, mengapa nelayan terus menambah kapal hingga mencapai titik ini meski laut sudah rusak dan keuntungan habis (TR = TC)?
+            3. **Simulasi Subsidi BBM:** Geser *slider* **Biaya (c)** ke kiri (lebih murah). Ke arah mana titik OAE bergeser? Apakah subsidi mempercepat overfishing?
+            4. **Kemitraan dengan Alam:** Titik hijau (MEY) selalu di sebelah kiri MSY. Mengapa mengejar nilai ekonomi (MEY) terbukti lebih "ramah lingkungan" daripada mengejar volume fisik (MSY)? Instrumen kebijakan apa yang bisa menahan nelayan di titik MEY?
+            """)
+            
+        # Plot Grafik Tab 2
         fig2, ax2 = plt.subplots(figsize=(10, 5))
         ax2.plot(E, TR, label="Total Revenue (TR)", color="blue", linewidth=2)
         ax2.plot(E, TC, label="Total Cost (TC)", color="orange", linewidth=2)
         
-        # Plot Titik Kritis
         ax2.axvline(x=E_MEY, color="green", linestyle=":", label=f"MEY (E={E_MEY:.1f})")
         ax2.axvline(x=E_MSY, color="red", linestyle=":", label=f"MSY (E={E_MSY:.1f})")
         ax2.axvline(x=E_OAE, color="black", linestyle=":", label=f"OAE (E={E_OAE:.1f})")
@@ -103,9 +119,9 @@ else:
         
         # Tabel Ringkasan
         st.markdown("### Ringkasan Titik Keseimbangan")
-        st.write(f"- **MEY (Maximum Economic Yield):** Dicapai pada effort **{E_MEY:.2f}**. Jarak TR dan TC paling lebar (keuntungan maksimal). Ideal untuk kemitraan dengan alam.")
-        st.write(f"- **MSY (Maximum Sustainable Yield):** Dicapai pada effort **{E_MSY:.2f}**. Pendapatan kotor tertinggi, tapi keuntungan bersih sudah menurun.")
-        st.write(f"- **OAE (Open Access Equilibrium):** Dicapai pada effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
+        st.write(f"- **MEY (Maximum Economic Yield):** Effort **{E_MEY:.2f}**. Jarak TR dan TC paling lebar (keuntungan maksimal). Ideal untuk kelestarian.")
+        st.write(f"- **MSY (Maximum Sustainable Yield):** Effort **{E_MSY:.2f}**. Pendapatan kotor tertinggi, tapi stok ikan mulai tertekan.")
+        st.write(f"- **OAE (Open Access Equilibrium):** Effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
 
 # --- TAMBAHAN KATA KUNCI TAB 2 ---
         with st.expander("📌 Kata Kunci & Bahan Kajian Kelompok (Ekonomi & Kebijakan)"):
