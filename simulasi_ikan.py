@@ -1,0 +1,79 @@
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Konfigurasi Halaman
+st.set_page_config(page_title="Simulasi Ekonomi Perikanan", layout="wide")
+st.title("Simulasi Ekonomi Sumber Daya Ikan (Bioeconomics)")
+st.write("Dibangun berdasarkan Model Gordon-Schaefer")
+
+# --- PANEL INPUT DI SIDEBAR ---
+st.sidebar.header("Parameter Biologi")
+r = st.sidebar.slider("Laju Pertumbuhan Intrinsik (r)", 0.1, 1.0, 0.5, step=0.05)
+K = st.sidebar.slider("Daya Dukung Lingkungan (K)", 1000, 10000, 5000, step=500)
+q = st.sidebar.slider("Koefisien Tangkap (q)", 0.001, 0.05, 0.01, step=0.001)
+
+st.sidebar.header("Parameter Ekonomi")
+p = st.sidebar.slider("Harga Jual Ikan (p)", 10, 200, 100, step=10)
+c = st.sidebar.slider("Biaya per Unit Effort (c)", 100, 2000, 500, step=100)
+
+# --- PERHITUNGAN MATEMATIS ---
+# Menghindari error jika biaya terlalu tinggi sehingga perikanan tidak layak
+if c >= p * q * K:
+    st.error("Biaya operasional terlalu tinggi dibandingkan potensi pendapatan (c >= pqK). Perikanan tidak layak secara ekonomi.")
+else:
+    # Titik Kritis Effort (E)
+    E_MSY = r / (2 * q)
+    E_OAE = (r / q) * (1 - (c / (p * q * K)))
+    E_MEY = E_OAE / 2
+
+    # Membuat rentang Effort (E) untuk sumbu X grafik
+    E_max = E_OAE * 1.2 # Lebihkan sedikit dari OAE untuk visualisasi
+    E = np.linspace(0, E_max, 200)
+
+    # Persamaan Kurva
+    Yield = q * E * K * (1 - (q * E) / r)
+    TR = p * Yield
+    TC = c * E
+
+    # --- MEMBUAT TAB UNTUK SKENARIO ---
+    tab1, tab2 = st.tabs(["1. Simulasi Gordon-Schaefer (Biologi)", "2. Simulasi Bioeconomics (Ekonomi)"])
+
+    with tab1:
+        st.subheader("Kurva Sustainable Yield")
+        fig1, ax1 = plt.subplots(figsize=(10, 5))
+        ax1.plot(E, Yield, label="Sustainable Yield (h)", color="green", linewidth=2)
+        ax1.axvline(x=E_MSY, color="red", linestyle="--", label=f"MSY (E={E_MSY:.1f})")
+        
+        ax1.set_xlabel("Upaya Penangkapan / Effort (E)")
+        ax1.set_ylabel("Hasil Tangkapan / Catch (h)")
+        ax1.set_title("Hubungan Upaya Penangkapan dan Kelestarian")
+        ax1.legend()
+        ax1.grid(True, linestyle='--', alpha=0.6)
+        st.pyplot(fig1)
+        
+        st.info("Di sini terlihat bahwa tangkapan maksimal (MSY) dicapai pada titik tertentu. Menambah *effort* melampaui garis merah justru akan menurunkan hasil tangkapan karena populasi ikan gagal bereproduksi dengan cukup.")
+
+    with tab2:
+        st.subheader("Kurva Total Revenue (TR) dan Total Cost (TC)")
+        fig2, ax2 = plt.subplots(figsize=(10, 5))
+        ax2.plot(E, TR, label="Total Revenue (TR)", color="blue", linewidth=2)
+        ax2.plot(E, TC, label="Total Cost (TC)", color="orange", linewidth=2)
+        
+        # Plot Titik Kritis
+        ax2.axvline(x=E_MEY, color="green", linestyle=":", label=f"MEY (E={E_MEY:.1f})")
+        ax2.axvline(x=E_MSY, color="red", linestyle=":", label=f"MSY (E={E_MSY:.1f})")
+        ax2.axvline(x=E_OAE, color="black", linestyle=":", label=f"OAE (E={E_OAE:.1f})")
+        
+        ax2.set_xlabel("Upaya Penangkapan / Effort (E)")
+        ax2.set_ylabel("Nilai Moneter")
+        ax2.set_title("Analisis Kebijakan Ekonomi Perikanan")
+        ax2.legend()
+        ax2.grid(True, linestyle='--', alpha=0.6)
+        st.pyplot(fig2)
+        
+        # Tabel Ringkasan
+        st.markdown("### Ringkasan Titik Keseimbangan")
+        st.write(f"- **MEY (Maximum Economic Yield):** Dicapai pada effort **{E_MEY:.2f}**. Jarak TR dan TC paling lebar (keuntungan maksimal). Ideal untuk kemitraan dengan alam.")
+        st.write(f"- **MSY (Maximum Sustainable Yield):** Dicapai pada effort **{E_MSY:.2f}**. Pendapatan kotor tertinggi, tapi keuntungan bersih sudah menurun.")
+        st.write(f"- **OAE (Open Access Equilibrium):** Dicapai pada effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
