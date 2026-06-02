@@ -53,7 +53,19 @@ else:
         st.pyplot(fig1)
         
         st.info("Di sini terlihat bahwa tangkapan maksimal (MSY) dicapai pada titik tertentu. Menambah *effort* melampaui garis merah justru akan menurunkan hasil tangkapan karena populasi ikan gagal bereproduksi dengan cukup.")
-
+# --- TAMBAHAN KATA KUNCI TAB 1 ---
+        with st.expander("📌 Kata Kunci & Bahan Kajian Kelompok (Ekologi)"):
+            st.markdown("""
+            **Diskusikan konsep berikut berdasarkan pergerakan kurva:**
+            *   **Carrying Capacity ($K$):** Apa dampaknya pada kurva jika habitat laut rusak sehingga nilai $K$ anjlok?
+            *   **Biological Overfishing:** Di rentang *effort* mana populasi ikan mulai kehilangan kemampuan pemulihan alaminya?
+            *   **Laju Pertumbuhan ($r$):** Bandingkan ikan berumur panjang (pertumbuhan lambat) vs ikan pelagis kecil. Mana yang lebih rentan terhadap intensitas penangkapan?
+            *   **Titik Kritis MSY:** Mengapa mengejar hasil tangkapan fisik maksimal secara terus-menerus sering kali dianggap berisiko tinggi?
+            """)
+            
+        fig1, ax1 = plt.subplots(figsize=(10, 5))
+        # ... [kode plot fig1 dan ax1 dilanjutkan di bawah sini] ...
+    
     with tab2:
         st.subheader("Kurva Total Revenue (TR) dan Total Cost (TC)")
         fig2, ax2 = plt.subplots(figsize=(10, 5))
