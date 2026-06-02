@@ -77,3 +77,32 @@ else:
         st.write(f"- **MEY (Maximum Economic Yield):** Dicapai pada effort **{E_MEY:.2f}**. Jarak TR dan TC paling lebar (keuntungan maksimal). Ideal untuk kemitraan dengan alam.")
         st.write(f"- **MSY (Maximum Sustainable Yield):** Dicapai pada effort **{E_MSY:.2f}**. Pendapatan kotor tertinggi, tapi keuntungan bersih sudah menurun.")
         st.write(f"- **OAE (Open Access Equilibrium):** Dicapai pada effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
+
+# --- FOOTER / KREDIT ---
+st.sidebar.markdown("---") # Membuat garis pembatas tipis
+
+# Membagi ruang menjadi dua kolom kecil agar foto dan logo bisa berdampingan
+col1, col2 = st.sidebar.columns(2)
+
+with col1:
+    try:
+        st.image("logounisba.png", use_container_width=True)
+    except:
+        pass # Mengabaikan jika gambar belum terunggah sempurna
+
+with col2:
+    try:
+        st.image("yuhka.png", use_container_width=True)
+    except:
+        pass
+
+# Menambahkan teks dengan format HTML agar ukurannya kecil (11px), warnanya kalem (abu-abu/muted), dan posisinya di tengah
+st.sidebar.markdown(
+    """
+    <div style="text-align: center; font-size: 11px; color: #666; margin-top: 10px;">
+        Dikembangkan oleh <b>Yuhka Sundaya</b><br>
+        Ekonomi Pembangunan Unisba, 2026
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
