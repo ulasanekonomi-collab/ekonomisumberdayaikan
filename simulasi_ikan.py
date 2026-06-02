@@ -79,30 +79,34 @@ else:
         st.write(f"- **OAE (Open Access Equilibrium):** Dicapai pada effort **{E_OAE:.2f}**. TR = TC, keuntungan bersih habis (Tragedy of the Commons).")
 
 # --- FOOTER / KREDIT ---
-st.sidebar.markdown("---") # Membuat garis pembatas tipis
+st.sidebar.markdown("---") 
 
-# Membagi ruang menjadi dua kolom kecil agar foto dan logo bisa berdampingan
-col1, col2 = st.sidebar.columns(2)
+# 1. Menampilkan Logo Unisba (dibuat ukurannya pas, tidak terlalu lebar)
+try:
+    st.sidebar.image("logounisba.png", width=90) 
+except:
+    pass
 
-with col1:
+# 2. Membagi ruang menjadi dua kolom (rasio 1 untuk foto, 2.5 untuk teks)
+col_foto, col_teks = st.sidebar.columns([1, 2.5])
+
+with col_foto:
     try:
-        st.image("logounisba.png", use_container_width=True)
-    except:
-        pass # Mengabaikan jika gambar belum terunggah sempurna
-
-with col2:
-    try:
+        # Pastikan nama filenya sesuai dengan yang di-upload di GitHub ya Kang 
         st.image("yuka.png", use_container_width=True)
     except:
         pass
 
-# Menambahkan teks dengan format HTML agar ukurannya kecil (11px), warnanya kalem (abu-abu/muted), dan posisinya di tengah
-st.sidebar.markdown(
-    """
-    <div style="text-align: center; font-size: 11px; color: #666; margin-top: 10px;">
-        Dikembangkan oleh <b>Yuhka Sundaya</b><br>
-        Ekonomi Pembangunan Unisba, 2026
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
+with col_teks:
+    # Menggunakan line-height agar jarak antar baris lebih rapat dan rapi
+    st.markdown(
+        """
+        <div style="font-size: 11px; color: #666; line-height: 1.4; margin-top: 2px;">
+            Dikembangkan oleh:<br>
+            <b>Yuhka Sundaya</b><br>
+            Ekonomi Pembangunan<br>
+            Unisba, 2026
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
