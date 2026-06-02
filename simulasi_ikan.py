@@ -92,7 +92,7 @@ with col1:
 
 with col2:
     try:
-        st.image("yuhka.png", use_container_width=True)
+        st.image("yuka.png", use_container_width=True)
     except:
         pass
 
