@@ -36,11 +36,28 @@ else:
     TR = p * Yield
     TC = c * E
 
-    # --- MEMBUAT TAB UNTUK SKENARIO ---
+# --- MEMBUAT TAB UNTUK SKENARIO ---
     tab1, tab2 = st.tabs(["1. Simulasi Gordon-Schaefer (Biologi)", "2. Simulasi Bioeconomics (Ekonomi)"])
 
+    # ==========================================
+    # TAB 1: GORDON-SCHAEFER
+    # ==========================================
     with tab1:
         st.subheader("Kurva Sustainable Yield")
+        
+        # Petunjuk Pembelajaran Tab 1
+        with st.expander("📖 Petunjuk Pembelajaran & Eksperimen (Klik untuk membuka)", expanded=False):
+            st.markdown("""
+            **Tujuan:** Menganalisis interaksi antara tingkat eksploitasi dan daya dukung lingkungan, serta memahami konsep batas kelestarian alam.
+            
+            **Langkah Eksperimen:**
+            1. **Baseline:** Biarkan *slider* pada nilai awal. Puncak parabola adalah **MSY** (batas maksimal alam menyediakan sumber daya secara lestari).
+            2. **Simulasi Kerusakan Lingkungan:** Geser *slider* **Daya Dukung Lingkungan (K)** ke kiri (turun). Amati apa yang terjadi pada tinggi dan lebar kurva jika habitat laut rusak.
+            3. **Karakteristik Spesies:** Geser *slider* **Laju Pertumbuhan (r)** untuk membandingkan ikan umur panjang (r kecil) vs pelagis kecil (r besar). Mana yang lebih rentan terhadap overfishing?
+            4. **Biological Overfishing:** Perhatikan area di sebelah kanan garis merah (MSY). Mengapa menambah jaring (effort) di area ini justru menurunkan hasil tangkapan?
+            """)
+            
+        # Plot Grafik Tab 1
         fig1, ax1 = plt.subplots(figsize=(10, 5))
         ax1.plot(E, Yield, label="Sustainable Yield (h)", color="green", linewidth=2)
         ax1.axvline(x=E_MSY, color="red", linestyle="--", label=f"MSY (E={E_MSY:.1f})")
